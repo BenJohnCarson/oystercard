@@ -46,7 +46,27 @@ describe Journey do
          end
        end
     end
+    
     describe '#fare' do
+        context 'complete journey returns min fare' do
+            before do
+                subject.start_journey(:entry_station)
+                subject.finish_journey(:exit_station)
+            end
+            
+            it 'returns minimum_fare' do
+                expect(subject.fare).to eq (Journey::MINIMUM_FARE)
+            end
+        end
+        
+        context 'incomplete journey returns penalty fare' do
+            before do
+                subject.finish_journey(:exit_station)
+            end
+            
+            it 'returns penalty fare' do
+                expect(subject.fare).to eq (Journey::PENALTY_FARE)
+            end
+        end
     end
-
 end
