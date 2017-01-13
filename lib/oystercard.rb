@@ -1,16 +1,18 @@
 require_relative 'balance_error'
 require_relative 'station'
 require_relative 'journey'
+require_relative 'journey_log'
 
 class Oystercard
     
     BALANCE_LIMIT = 90
     
-    attr_reader :balance, :journey_log
+    attr_reader :balance, :journey_log, :journey_log_class
     
-    def initialize(journey = Journey.new)
+    def initialize(journey = Journey.new, journey_log_class = Journey_log.new(journey_class: Journey.new))
         @balance = 0
         @journey_log = []
+        @journey_log_class = journey_log_class
         @journey = journey
     end
     
